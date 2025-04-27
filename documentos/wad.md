@@ -29,8 +29,8 @@
 
 <div align="center">
   <sub>FIGURA X - Persona </sub><br>
-  <img src= ".../assets/persona.png" width="100%"
-  alt="  ">(espaço para escrever oq é a imagem)<br>
+  <img src= "./assets/persona.png" width="100%"
+  alt="  ">Persona<br>
   <sup>Fonte: Material produzido pelo autor, 2025</sup>
 </div>
 
