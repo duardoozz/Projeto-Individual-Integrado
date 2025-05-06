@@ -34,7 +34,7 @@ Personas são representações semifictícias de segmentos‑chave de usuários,
 
 <div align="center">
   <sub>FIGURA X - Persona </sub><br>
-  <img src= "../assets/persona.png" width="100%"
+  <img src= "../assets/persona.png"
   alt="Persona"><br>
   <sup>Fonte: Material produzido pelo autor, 2025</sup>
 </div><br>
@@ -75,7 +75,7 @@ Para o sistema de reserva de salas, foram identificadas três entidades principa
 
 <div align="center">
   <sub>FIGURA X - Modelo Banco de Dados </sub><br>
-  <img src= "../assets/modelo-banco.png" width="100%"
+  <img src= "../assets/modelo-banco.png"
   alt="Modelo Banco de Dados"><br>
   <sup>Fonte: Material produzido pelo autor, 2025</sup>
 </div>
