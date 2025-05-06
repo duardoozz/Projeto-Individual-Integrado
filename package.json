@@ -1,4 +1,4 @@
-git s{
+{
   "name": "mvc-boilerplate",
   "version": "1.0.0",
   "description": "Boilerplate para estrutura MVC em JavaScript com PostgreSQL e testes",
