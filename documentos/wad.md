@@ -16,7 +16,7 @@
 
 <br>
 
-## <a name="c1"></a>1. Introdução (Semana 01)
+## <a name="c1"></a>1. Introdução
 
 Em ambientes corporativos modernos, a gestão eficiente de espaços é um desafio constante. Com a crescente demanda por reuniões e a necessidade de otimizar o uso das salas, muitos profissionais enfrentam dificuldades em agendar espaços de forma rápida e sem conflitos. O problema é exacerbado pela falta de integração entre os sistemas de reserva, que frequentemente apresentam informações desatualizadas, além da complexidade no processo de confirmação de disponibilidade e a necessidade de interações manuais, o que impacta diretamente na produtividade.
 
@@ -41,7 +41,7 @@ Personas são representações semifictícias de segmentos‑chave de usuários,
 
 Portanto, A implementação de um sistema de reserva de salas inteligente vai otimizar o tempo de Mariana, permitindo agendamentos rápidos e sem conflitos. Com controle total sobre as reservas e notificações automáticas, ela terá mais organização e produtividade, melhorando sua rotina profissional e reduzindo falhas no processo.
 
-### 2.2. User Stories (Semana 01 - opcional)
+### 2.2. User Stories
 
 Identificação | US01
 --- | ---
@@ -69,11 +69,22 @@ Critério de aceite 3 | CR3: O administrador deve ser capaz de visualizar e edit
 
 ## <a name="c3"></a>3. Projeto da Aplicação Web
 
-### 3.1. Modelagem do banco de dados  (Semana 3)
+### 3.1. Modelagem do banco de dados
 
-*Posicione aqui os diagramas de modelos relacionais do seu banco de dados, apresentando todos os esquemas de tabelas e suas relações. Utilize texto para complementar suas explicações, se necessário.*
+Para o sistema de reserva de salas, foram identificadas três entidades principais: **users**, **rooms** e **bookings**. A modelagem busca garantir integridade dos dados, simplicidade nas consultas e flexibilidade para futuras melhorias.
 
-*Posicione também o modelo físico com o Schema do BD (arquivo .sql)*
+<div align="center">
+  <sub>FIGURA X - Modelo Banco de Dados </sub><br>
+  <img src= "../assets/modelo-banco.png" width="100%"
+  alt="Modelo Banco de Dados"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+#### Relacionamentos
+
+- Um **usuário** pode realizar **várias reservas** → relação 1:N entre `users` e `bookings`.
+- Uma **sala** pode estar associada a **várias reservas** → relação 1:N entre `rooms` e `bookings`.
+
 
 ### 3.1.1 BD e Models (Semana 5)
 *Descreva aqui os Models implementados no sistema web*
