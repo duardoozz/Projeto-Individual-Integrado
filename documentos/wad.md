@@ -102,7 +102,18 @@ Para o sistema de reserva de salas, foram identificadas três entidades principa
 
 ### 3.3. Wireframes (Semana 03 - opcional)
 
-*Posicione aqui as imagens do wireframe construído para sua solução e, opcionalmente, o link para acesso (mantenha o link sempre público para visualização).*
+O wireframe do SalaFlux foi desenvolvido com base nas principais necessidades identificadas na persona Marina Souza e nas user stories levantadas. Como uma profissional que preza por agilidade e organização no trabalho, Marina precisa de um sistema que facilite o agendamento de salas, a lembre sobre suas reservas e permita o cancelamento rápido quando necessário.
+
+<div align="center">
+  <sub>FIGURA X - Wireframe de baixa fidelidade </sub><br>
+  <img src= "../assets/wireframe1.png"
+  alt="Wireframe de baixa fidelidade"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+O wireframe reflete uma interface clara e funcional, que prioriza a visualização da disponibilidade das salas em tempo real, a criação rápida de novas reservas e o gerenciamento prático dos compromissos. Elementos como reuniões próximas visíveis e botões acessíveis para cancelar ou editar agendamentos foram incorporados para atender diretamente às histórias de usuário.
+
+Assim, o wireframe serve como um guia visual da solução ideal para usuárias como Marina, tornando sua rotina mais fluida, evitando conflitos de horários e melhorando sua produtividade no ambiente de trabalho.
 
 ### 3.4. Guia de estilos (Semana 05 - opcional)
 
