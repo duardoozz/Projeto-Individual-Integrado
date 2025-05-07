@@ -6,11 +6,11 @@
 
 ## 📝 Descrição
 
-O SalaFlux é um sistema web voltado para a reserva inteligente e otimizada de salas, ideal para ambientes acadêmicos, corporativos ou coworkings. Seu principal objetivo é agilizar o agendamento de espaços, evitando conflitos de horário e melhorando a gestão do tempo e dos recursos disponíveis.
+O SalaFlux é um sistema web voltado para a reserva otimizada de salas, ideal para ambientes acadêmicos, corporativos ou coworkings. Seu principal objetivo é agilizar o agendamento de espaços, evitando conflitos de horário e melhorando a gestão do tempo e dos recursos disponíveis.
 
-Com uma interface intuitiva, o sistema permite que usuários cadastrem reservas com poucos cliques, visualizem a disponibilidade em tempo real e acompanhem seus agendamentos ativos ou passados. Administradores podem cadastrar novas salas, definir regras de uso e acompanhar o uso do espaço ao longo do tempo.
+Com uma interface intuitiva, o sistema permite que usuários agendem uma sala para seus compromissos de forma rápida e simples. Além disso, o SalaFlux envia notificações sobre as reservas, ajudando os usuários a se lembrarem dos compromissos agendados e evitando conflitos ou esquecimentos. Caso necessário, os usuários podem cancelar uma reserva, liberando o espaço para outros.
 
-A proposta do SalaFlux é ser um aliado da produtividade, organizando agendas, reduzindo o tempo gasto em solicitações manuais e garantindo um fluxo de ocupação mais eficiente e transparente.
+A proposta do SalaFlux é ser um aliado da produtividade, organizando agendas e garantindo um fluxo de ocupação mais eficiente e transparente.
 
 ## 📝 Link de demonstração
 

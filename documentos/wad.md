@@ -45,25 +45,25 @@ Portanto, A implementação de um sistema de reserva de salas inteligente vai ot
 
 Identificação | US01
 --- | ---
-User Story | "Como colaborador de uma empresa, quero visualizar as salas de reunião disponíveis em tempo real, para que eu possa agendar rapidamente um espaço sem conflitos de horário."
-Critério de aceite 1 | CR1: O sistema deve exibir todas as salas de reunião disponíveis em tempo real, com indicação clara de disponibilidade ou ocupação.
-Critério de aceite 2 | CR2: O usuário deve ser capaz de visualizar a agenda de cada sala com a mesma interface de agendamento, mostrando o horário de início e fim de cada reserva já existente.
-Critério de aceite 3 | CR3: O sistema deve garantir que as reservas feitas sejam em horários que não conflitem com outras já confirmadas, evitando agendamentos duplos.
-Critérios INVEST | A US01 é independente porque descreve uma funcionalidade específica — visualizar as salas de reunião disponíveis em tempo real — que pode ser desenvolvida e testada de forma isolada, sem depender de outras funcionalidades do sistema, como o agendamento de salas ou o gerenciamento de permissões. O sistema pode exibir a disponibilidade das salas sem a necessidade de integrar funcionalidades mais complexas neste momento. Ela é negociável porque o objetivo principal (visualizar as salas de reunião disponíveis) pode ser alcançado de diferentes maneiras. Por exemplo, o layout da interface, a forma como as informações são apresentadas ou o formato das notificações podem ser discutidos com o time e ajustados conforme necessário, sem afetar o objetivo central da história. A US01 é valiosa porque resolve um problema relevante para o usuário. Permitindo que o colaborador visualize as salas de reunião disponíveis em tempo real, ele pode agendar a sala mais adequada sem conflitos de horários, o que economiza tempo e melhora a produtividade da equipe, além de otimizar o uso das salas de reunião. Ela é estimável porque o esforço necessário para implementá-la é claro e razoavelmente fácil de calcular. A funcionalidade envolve apenas a visualização da disponibilidade das salas, o que pode ser feito de forma simples, com as informações de agendamento atualizadas em tempo real, sem exigir grande complexidade. A US01 é pequena porque se refere a uma funcionalidade específica, que pode ser implementada de forma compacta e com um escopo limitado. A tarefa de visualizar as salas disponíveis em tempo real é simples o suficiente para ser implementada em um curto período de tempo, sem a necessidade de um grande esforço de desenvolvimento. Por fim, a US01 é testável porque os critérios de aceite estão bem definidos e oferecem uma base clara para validação. É possível testar a funcionalidade para garantir que as salas sejam exibidas corretamente, sem conflitos de agendamento, e que a disponibilidade das salas seja atualizada em tempo real, conforme esperado.
+User Story | "Como usuário, quero poder agendar uma sala, para que eu possa reservar um espaço para meus compromissos."
+Critério de aceite 1 | CR1: O sistema deve permitir que o usuário selecione uma sala disponível, uma data e um horário.
+Critério de aceite 2 | CR2: O sistema deve confirmar a reserva e exibir os detalhes do agendamento.
+Critério de aceite 3 | CR3: O sistema deve impedir o agendamento de salas que já estejam reservadas no mesmo horário.
 
-Identificação | US02
---- | ---
-User Story | "Como gerente de projeto, quero receber notificações automáticas sobre os agendamentos de salas, para que eu possa me organizar melhor e garantir que todos os compromissos sejam cumpridos."
-Critério de aceite 1 | CR1: O sistema deve enviar notificações automáticas para o gerente de projeto sempre que uma sala for agendada, alterada ou cancelada.
-Critério de aceite 2 | CR2: As notificações devem ser enviadas por e-mail e/ou dentro do próprio sistema de agendamento, com informações claras sobre a sala, horário e data do agendamento.
-Critério de aceite 3 | CR3: O gerente de projeto deve ser capaz de configurar suas preferências de notificação, incluindo o tipo de evento (agendamento, alteração, cancelamento) e o canal de envio (e-mail ou sistema).
+Identificação | US02  
+--- | ---  
+User Story | "Como usuário, quero receber notificações sobre minhas reservas, para que eu possa me lembrar dos compromissos agendados e evitar conflitos ou esquecimentos."  
+Critério de aceite 1 | CR1: O sistema deve enviar uma notificação antes do horário da reserva, informando o local, data e hora.  
+Critério de aceite 2 | CR2: O usuário deve ser notificado também em caso de alterações ou cancelamentos na reserva.  
+Critério de aceite 3 | CR3: As notificações devem ser enviadas por e-mail e/ou exibidas dentro do sistema, conforme preferência do usuário.  
 
 Identificação | US03
 --- | ---
-User Story | "Como administrador de sistemas, quero ter a capacidade de gerenciar as permissões de usuários, para que eu possa controlar quem pode agendar e modificar reservas de salas."
-Critério de aceite 1 | CR1: O administrador deve ser capaz de definir permissões específicas para cada usuário, permitindo ou restringindo o agendamento e a modificação de reservas de salas.
-Critério de aceite 2 | CR2: O sistema deve permitir que o administrador crie diferentes níveis de permissão (por exemplo, usuário padrão, gerente de sala, administrador), com base nas necessidades da organização.
-Critério de aceite 3 | CR3: O administrador deve ser capaz de visualizar e editar as permissões de usuários de maneira simples e intuitiva, por meio de uma interface de gerenciamento de usuários.
+User Story | "Como usuário, quero poder cancelar uma reserva de sala, para que eu possa liberar o espaço quando não for mais utilizá-lo."
+Critério de aceite 1 | CR1: O sistema deve permitir o cancelamento de reservas futuras diretamente pela interface do usuário.
+Critério de aceite 2 | CR2: O usuário deve receber uma confirmação visual ou por e-mail informando que a reserva foi cancelada com sucesso.
+Critério de aceite 3 | CR3: A sala cancelada deve retornar ao status de disponível imediatamente após o cancelamento.
+Critérios INVEST | A US03 é independente porque trata de uma funcionalidade específica — o cancelamento de uma reserva — que pode ser implementada separadamente das outras, como criação ou edição de reservas. Ela é negociável, pois a forma de cancelamento (por botão, por link, com confirmação extra, etc.) pode ser ajustada conforme feedback dos usuários ou decisões de design. É valiosa porque permite que os usuários liberem espaços que não utilizarão, aumentando a eficiência no uso das salas e evitando bloqueios desnecessários. É estimável, já que envolve interações simples como excluir uma entrada no banco de dados e atualizar a interface, permitindo uma estimativa clara de esforço. É pequena, pois se concentra em apenas uma ação dentro do sistema — cancelar uma reserva específica — sem depender de múltiplos fluxos ou integrações complexas. Por fim, é testável porque os critérios de aceite são objetivos: é possível verificar se a reserva foi realmente cancelada, se o status da sala foi atualizado e se a confirmação foi enviada ao usuário.
 
 ---
 
