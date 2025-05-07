@@ -18,6 +18,42 @@ _Coloque aqui o link para seu projeto publicado e link para vídeo de demonstra�
 
 ## 📁 Estrutura de pastas
 
+````
+MVC-BOILERPLATE/
+│
+├── assets/
+├── config/                
+│    └── db.js
+├── controllers/          
+│    └── userController.js
+├── documentos/
+│    ├── other/
+│    └── wad.md
+├── models/      
+│    └── userModel.js
+├── node_modules/
+├── routes/             
+│    ├── frontRoutes.js
+│    └── userRoutes.js
+├── scripts/                             
+├── services/
+│    └── userService.js                     
+├── tests/                 
+│    ├── userController.test.js
+│    ├── userModel.test.js
+│    ├── userRoutes.test.js
+│    └── userService.test.js
+├── views/
+├── .env            
+├── .gitignore          
+├── jest.config.js        
+├── package-lock.json     
+├── package.json           
+├── readme.md           
+├── rest.http        
+└── server.js         
+````
+
 Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
 - <b>assets</b>: aqui estão os arquivos relacionados a elementos não-estruturados deste repositório, como imagens.
