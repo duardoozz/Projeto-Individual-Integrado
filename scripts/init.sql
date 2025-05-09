@@ -1,35 +1,41 @@
--- init.sql
-
--- Criar extensão para suportar UUIDs, se ainda não estiver ativada
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
--- Criar tabela de usuários com UUID como chave primária
+-- Criar tabela de usuários
 CREATE TABLE IF NOT EXISTS users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  role VARCHAR(10) NOT NULL CHECK (role IN ('admin', 'user'))
 );
 
--- Inserir 20 usuários com nomes e emails aleatórios
-INSERT INTO users (name, email)
-VALUES 
-  ('Alice Smith', 'alice.smith@example.com'),
-  ('Bob Johnson', 'bob.johnson@example.com'),
-  ('Carol Williams', 'carol.williams@example.com'),
-  ('David Jones', 'david.jones@example.com'),
-  ('Emma Brown', 'emma.brown@example.com'),
-  ('Frank Davis', 'frank.davis@example.com'),
-  ('Grace Wilson', 'grace.wilson@example.com'),
-  ('Henry Moore', 'henry.moore@example.com'),
-  ('Isabella Taylor', 'isabella.taylor@example.com'),
-  ('Jack Lee', 'jack.lee@example.com'),
-  ('Kate Clark', 'kate.clark@example.com'),
-  ('Liam Martinez', 'liam.martinez@example.com'),
-  ('Mia Rodriguez', 'mia.rodriguez@example.com'),
-  ('Noah Garcia', 'noah.garcia@example.com'),
-  ('Olivia Hernandez', 'olivia.hernandez@example.com'),
-  ('Patrick Martinez', 'patrick.martinez@example.com'),
-  ('Quinn Lopez', 'quinn.lopez@example.com'),
-  ('Rose Thompson', 'rose.thompson@example.com'),
-  ('Samuel Perez', 'samuel.perez@example.com'),
-  ('Tara Scott', 'tara.scott@example.com');
+-- Criar tabela de salas
+CREATE TABLE IF NOT EXISTS rooms (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  capacity INT NOT NULL,
+  location VARCHAR(100) NOT NULL,
+  available BOOLEAN DEFAULT TRUE,
+  availability_start TIME NOT NULL,
+  availability_end TIME NOT NULL,
+  created_by INT NOT NULL REFERENCES users(id)
+);
+
+-- Criar tabela de reservas
+CREATE TABLE IF NOT EXISTS bookings (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL REFERENCES users(id),
+  room_id INT NOT NULL REFERENCES rooms(id),
+  start_time TIMESTAMP NOT NULL,
+  end_time TIMESTAMP NOT NULL,
+  status VARCHAR(20) NOT NULL CHECK (status IN ('ativa', 'cancelada', 'concluída')),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Criar tabela de notificações
+CREATE TABLE IF NOT EXISTS notifications (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL REFERENCES users(id),
+  reservation_id INT NOT NULL REFERENCES bookings(id),
+  message TEXT NOT NULL,
+  sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  was_read BOOLEAN DEFAULT FALSE
+);

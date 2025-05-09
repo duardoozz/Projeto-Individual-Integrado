@@ -71,7 +71,7 @@ Critérios INVEST | A US03 é independente porque trata de uma funcionalidade es
 
 ### 3.1. Modelagem do banco de dados
 
-Para o sistema de reserva de salas, foram identificadas três entidades principais: **users**, **rooms** e **bookings**. A modelagem busca garantir integridade dos dados, simplicidade nas consultas e flexibilidade para futuras melhorias.
+Para o sistema de reserva de salas, foram identificadas quatro entidades principais: **users**, **rooms**, **notificações** e **bookings**. A modelagem busca garantir integridade dos dados, simplicidade nas consultas e flexibilidade para futuras melhorias.
 
 <div align="center">
   <sub>FIGURA X - Modelo Banco de Dados </sub><br>
@@ -82,8 +82,20 @@ Para o sistema de reserva de salas, foram identificadas três entidades principa
 
 #### Relacionamentos
 
-- Um **usuário** pode realizar **várias reservas** → relação 1:N entre `users` e `bookings`.
-- Uma **sala** pode estar associada a **várias reservas** → relação 1:N entre `rooms` e `bookings`.
+- Um **usuário** pode realizar **várias reservas**  
+  → Relação **1:N** entre `users` e `bookings`  
+
+- Uma **sala** pode estar associada a **várias reservas**  
+  → Relação **1:N** entre `rooms` e `bookings`  
+
+- Um **usuário (admin)** pode cadastrar **várias salas**  
+  → Relação **1:N** entre `users` e `rooms`  
+
+- Uma **reserva** pode gerar **várias notificações**  
+  → Relação **1:N** entre `bookings` e `notifications`  
+
+- Um **usuário** pode receber **várias notificações**  
+  → Relação **1:N** entre `users` e `notifications`  
 
 
 ### 3.1.1 BD e Models (Semana 5)
