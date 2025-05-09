@@ -117,9 +117,16 @@ Para o sistema de reserva de salas, foram identificadas quatro entidades princip
 O wireframe do SalaFlux foi desenvolvido com base nas principais necessidades identificadas na persona Marina Souza e nas user stories levantadas. Como uma profissional que preza por agilidade e organização no trabalho, Marina precisa de um sistema que facilite o agendamento de salas, a lembre sobre suas reservas e permita o cancelamento rápido quando necessário.
 
 <div align="center">
-  <sub>FIGURA X - Wireframe de baixa fidelidade </sub><br>
+  <sub>FIGURA X - Wireframe mobile de baixa fidelidade </sub><br>
   <img src= "../assets/wireframe1.png"
-  alt="Wireframe de baixa fidelidade"><br>
+  alt="Wireframe mobile de baixa fidelidade"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+<div align="center">
+  <sub>FIGURA X - Wireframe desktop de baixa fidelidade </sub><br>
+  <img src= "../assets/wireframe2.png"
+  alt="Wireframe desktop de baixa fidelidade"><br>
   <sup>Fonte: Material produzido pelo autor, 2025</sup>
 </div>
 
