@@ -97,22 +97,99 @@ Para o sistema de reserva de salas, foram identificadas quatro entidades princip
 - Um **usuário** pode receber **várias notificações**  
   → Relação **1:N** entre `users` e `notifications`  
 
+### 3.1.1 BD e Models
 
-### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+Nesta seção são descritos os principais Models implementados no sistema web, responsáveis pela interação com o banco de dados via queries SQL executadas pela camada de persistência (`db.query`). Cada Model representa uma entidade do domínio da aplicação e encapsula as operações CRUD.
 
-### 3.2. Arquitetura (Semana 5)
+---
 
-*Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
+#### Model User
 
-**Instruções para criação do diagrama de arquitetura**  
-- **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
-- **View**: A camada responsável pela interface de usuário.
-- **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
-  
-*Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
+Classe `User` que representa os usuários do sistema.
 
-### 3.3. Wireframes (Semana 03 - opcional)
+- **Campos principais:** `id`, `name`, `email`, `password`, `role`.
+- **Métodos:**
+  - `getAllUsers()`: Retorna todos os usuários.
+  - `getUserById(id)`: Retorna o usuário com o ID especificado.
+  - `createUser(data)`: Cria um novo usuário com os dados fornecidos.
+  - `updateUser(id, data)`: Atualiza os dados do usuário pelo ID.
+  - `deleteUser(id)`: Deleta o usuário pelo ID.
+
+---
+
+#### Model Room
+
+Objeto `Room` que representa as salas disponíveis para reserva.
+
+- **Campos principais:** `id`, `name`, `capacity`, `location`, `available`, `availability_start`, `availability_end`, `created_by`.
+- **Métodos:**
+  - `getAllRooms()`: Retorna todas as salas cadastradas.
+  - `getRoomById(id)`: Retorna uma sala pelo ID.
+  - `createRoom(roomData)`: Cria uma nova sala com os dados fornecidos.
+  - `updateRoom(id, roomData)`: Atualiza uma sala existente pelo ID.
+  - `deleteRoom(id)`: Remove uma sala pelo ID.
+
+---
+
+#### Model Booking
+
+Objeto `Booking` que representa as reservas realizadas.
+
+- **Campos principais:** `id`, `user_id`, `room_id`, `start_time`, `end_time`, `status`.
+- **Métodos:**
+  - `getAllBookings()`: Retorna todas as reservas.
+  - `getBookingById(id)`: Retorna uma reserva pelo ID.
+  - `createBooking(bookingData)`: Cria uma nova reserva com os dados fornecidos.
+  - `updateBooking(id, bookingData)`: Atualiza uma reserva existente pelo ID.
+  - `deleteBooking(id)`: Deleta uma reserva pelo ID.
+
+---
+
+#### Model Notification
+
+Objeto `Notification` que representa as notificações enviadas aos usuários.
+
+- **Campos principais:** `id`, `user_id`, `booking_id`, `message`, `was_read`, `sent_at`.
+- **Métodos:**
+  - `getAllNotifications()`: Retorna todas as notificações, ordenadas pela data de envio.
+  - `getUnreadByUser(userId)`: Retorna as notificações não lidas de um usuário.
+  - `createNotification({ user_id, booking_id, message })`: Cria uma nova notificação.
+  - `markAsRead(id)`: Marca uma notificação como lida pelo ID.
+
+---
+
+<br> Todos os Models usam o módulo `db` para fazer consultas e mudanças no banco de dados do projeto. Isso ajuda a manter o código organizado, porque toda a parte que mexe no banco fica separada do restante do sistema, facilitando o uso e a manutenção.
+
+### 3.2. Arquitetura
+
+Para a elaboração da arquitetura da aplicação web desenvolvida em nosso projeto, optamos pela utilização do padrão arquitetural **MVC (Model-View-Controller)**. Esse padrão promove uma organização mais clara e modular do código, o que facilita tanto o desenvolvimento quanto a manutenção da aplicação ao longo do tempo.
+
+O modelo MVC estabelece uma separação entre três componentes principais:
+
+- **Model (Modelo):** responsável por representar e gerenciar os dados, bem como as regras de negócio da aplicação. É nessa camada que se concentram os processos de manipulação e persistência das informações.
+
+- **View (Visão):** encarregada da apresentação das informações ao usuário, ou seja, da interface gráfica que permite a visualização e interação com os dados disponibilizados pela aplicação.
+
+- **Controller (Controlador):** atua como intermediário entre a View e o Model, sendo responsável por interpretar as ações realizadas pelo usuário, processar as requisições, acionar as regras de negócio e atualizar as interfaces conforme necessário.
+
+Na figura apresentada a seguir, é possível visualizar a estrutura da arquitetura MVC implementada, a qual orientou a divisão de responsabilidades entre as diferentes camadas da aplicação e garantiu maior eficiência no desenvolvimento.
+
+<div align="center">
+  <sub>FIGURA X - Arquitetura MVC </sub><br>
+  <img src= "../assets/arquitetura.png"
+  alt="Arquitetura MVC"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+A arquitetura implementada na aplicação evidencia a adoção eficiente do padrão **MVC (Model-View-Controller)**, que promoveu uma divisão clara de responsabilidades entre as diferentes camadas do sistema: **Views**, **Controllers** e **Models**. Essa separação contribuiu significativamente para a organização e a manutenção do código, permitindo que o desenvolvimento fosse realizado de forma mais estruturada e colaborativa.
+
+Além disso, observa-se a integração eficaz entre o **Client Side** e o **Server Side**. O frontend, desenvolvido com tecnologias como **JavaScript**, **HTML** e **CSS**, proporciona uma interface amigável e responsiva para os usuários, acessível via navegadores modernos. No backend, a utilização do **Node.js** e a modelagem de dados robusta garantem a execução das regras de negócio e a persistência eficiente das informações no banco de dados **PostgreSQL**, acessado via **Supabase**.
+
+A organização dos **Controllers** para diferentes funcionalidades — como agendamentos, notificações, usuários e salas — assegura a modularização do backend, facilitando tanto a escalabilidade quanto a manutenção futura do sistema.
+
+Por fim, a arquitetura proposta não apenas atendeu aos requisitos técnicos do projeto, mas também estabeleceu uma base sólida e sustentável para futuras evoluções da aplicação, seja no incremento de novas funcionalidades ou na otimização dos processos existentes.
+
+### 3.3. Wireframes
 
 O wireframe do SalaFlux foi desenvolvido com base nas principais necessidades identificadas na persona Marina Souza e nas user stories levantadas. Como uma profissional que preza por agilidade e organização no trabalho, Marina precisa de um sistema que facilite o agendamento de salas, a lembre sobre suas reservas e permita o cancelamento rápido quando necessário.
 
@@ -134,18 +211,164 @@ O wireframe reflete uma interface clara e funcional, que prioriza a visualizaç�
 
 Assim, o wireframe serve como um guia visual da solução ideal para usuárias como Marina, tornando sua rotina mais fluida, evitando conflitos de horários e melhorando sua produtividade no ambiente de trabalho.
 
-### 3.4. Guia de estilos (Semana 05 - opcional)
+### 3.4. Guia de estilos
 
-*Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução.*
+Este guia apresenta as diretrizes visuais e funcionais do SalaFlux, focado em oferecer uma experiência intuitiva e acessível. Com uma paleta de cores que transmite confiança e tipografia legível, o projeto prioriza a clareza e a facilidade de uso. Ícones e componentes foram criados para garantir agilidade e compreensão, mantendo a identidade consistente em toda a plataforma.
 
+<div align="center">
+  <sub>FIGURA X - Paleta de cores </sub><br>
+  <img src= "../assets/cores.png"
+  alt="Paleta de cores"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+A paleta de cores do SalaFlux foi selecionada criteriosamente com o intuito de assegurar excelente legibilidade, contraste apropriado e uma identidade visual coerente e profissional.
+
+- Cinza (#C9C9C9): Aplicado em elementos secundários, fundos neutros e bordas, conferindo equilíbrio e suavidade ao design.
+
+- Preto (#000000): Cor predominante para textos e ícones, garantindo contraste máximo e facilidade de leitura.
+
+- Branco (#FFFFFF): Utilizado em fundos e espaços vazios, promovendo clareza, destaque e uma melhor organização visual dos conteúdos.
+
+- Vermelho (#C60000): Empregado em botões de cancelamento ou para indicar estados inativos, servindo como sinalização de atenção e alerta para o usuário.
+
+A combinação dessas cores contribui para uma interface limpa, acessível e funcional, alinhada aos padrões de qualidade e usabilidade do projeto.
+
+<div align="center">
+  <sub>FIGURA X - Tipografia </sub><br>
+  <img src= "../assets/tipografia.png"
+  alt="Tipografia"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+A tipografia adotada no SalaFlux é a fonte Inter, escolhida por sua excelente legibilidade e versatilidade em ambientes digitais. A hierarquia tipográfica foi cuidadosamente definida para garantir clareza e organização visual em toda a interface.
+
+- Título 1: Inter Black, 96px — utilizado para destacar títulos principais com alta presença visual.
+
+- Título 2: Inter Black, 48px — empregado em subtítulos que necessitam de destaque, porém com menor impacto que o título principal.
+
+- Heading: Inter ExtraLight, 48px — aplicado em cabeçalhos para proporcionar um contraste elegante e leveza ao design.
+
+- Legenda 1: Inter SemiBold, 24px — destinado a legendas e textos auxiliares que exigem destaque moderado.
+
+- Heading 2: Inter Regular, 36px — usado em subtítulos secundários, mantendo boa legibilidade e equilíbrio visual.
+
+- Legenda 2: Inter SemiBold, 24px — também utilizada para legendas, garantindo consistência e uniformidade na apresentação dos textos.
+
+Essa estrutura tipográfica assegura uma comunicação visual clara, harmoniosa e acessível para os usuários do sistema.
+
+<div align="center">
+  <sub>FIGURA X - Botões </sub><br>
+  <img src= "../assets/botoes.png"
+  alt="Botões"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+No SalaFlux, os botões foram projetados para oferecer uma experiência clara e intuitiva, com dimensões e estilos definidos para diferentes contextos de uso.
+
+#### Botões Principais
+- Botão Reservar:
+Dimensões de 181 x 71 px (ou preenchimento total conforme layout) com fonte Inter SemiBold em 24px. Utilizado para ações primárias, garantindo destaque visual e fácil interação.
+
+- Botão Cancelar:
+Dimensões iguais ao botão reservar (181 x 71 px ou fill x fill), também com fonte Inter SemiBold 24px. Destinado a ações de cancelamento, com estilo que transmite alerta ou atenção ao usuário.
+
+- Botão de Seleção:
+Dimensões de 163 x 41 px, com fonte Inter Regular em 36px. Utilizado para opções de seleção, combinando legibilidade e espaço adequado para o texto.
+
+#### Estados dos Botões
+- Selecionado: Indica a opção ativa ou atualmente escolhida pelo usuário, com destaque visual que sinaliza o estado.
+
+- Inativo: Representa botões desabilitados, que não podem ser clicados ou acionados, normalmente indicados por uma cor ou estilo que transmite indisponibilidade.
+
+Esta padronização garante consistência visual e facilita a navegação e interação do usuário com a plataforma.
 
 ### 3.5. Protótipo de alta fidelidade (Semana 05 - opcional)
 
-*Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).*
+Um protótipo de alta fidelidade é uma representação interativa do produto, desenvolvido para computadores ou dispositivos móveis, que apresenta uma grande semelhança com o design final em termos de aparência, detalhes e funcionalidades.
 
-### 3.6. WebAPI e endpoints (Semana 05)
+Para o projeto SalaFlux, foi elaborado um protótipo em alta fidelidade que simula as principais funcionalidades da aplicação, garantindo uma experiência próxima ao produto final. A seguir, serão apresentadas e explicadas as páginas de maior relevância do protótipo. O trabalho completo está disponível no link abaixo:
 
-*Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema.*  
+[Acesse o protótipo completo aqui](https://www.figma.com/design/ZuDVO9MHV1Mxjs58jzgyUt/SalaFlux?node-id=61-92&p=f&t=ZOoCmG6qWu4vYcUq-0)
+
+
+<div align="center">
+  <sub>FIGURA X - Página Principal </sub><br>
+  <img src= "../assets/desktop1.png"
+  alt="Página Principal"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+A página inicial do SalaFlux foi projetada com simplicidade e usabilidade em foco. Com um layout clean e poucos botões, a navegação é intuitiva, permitindo que os usuários acessem rapidamente as principais funcionalidades da plataforma sem distrações. Essa abordagem facilita a experiência do usuário, especialmente para quem busca eficiência e agilidade no uso do sistema.
+
+<div align="center">
+  <sub>FIGURA X - Página de reservas </sub><br>
+  <img src= "../assets/desktop2.png"
+  alt="Página de reservas"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+A página de reservas do SalaFlux foi desenvolvida para oferecer uma experiência prática e eficiente. Ela conta com botões principais para acesso rápido aos horários disponíveis e às salas, além de um calendário integrado que facilita a visualização e seleção das datas. Essa organização permite que os usuários realizem suas reservas de forma ágil e intuitiva, otimizando o uso da plataforma.
+
+### 3.6. WebAPI e endpoints
+
+Web API é um conjunto de endpoints que permitem que diferentes sistemas e aplicações se comuniquem entre si, compartilhando recursos e dados. Os endpoints são organizados em rotas que representam recursos, e utilizam métodos HTTP para operações de CRUD e outras funcionalidades.
+
+#### Tipos de Solicitação (HTTP Methods)
+- **GET:** Recupera dados.
+- **POST:** Cria um novo recurso.
+- **PUT:** Atualiza um recurso existente.
+- **PATCH:** Atualiza parcialmente um recurso.
+- **DELETE:** Remove um recurso.
+
+### Endpoints da API (routes.js)
+
+#### Usuários (`/users`)
+
+| Método | Endpoint          | Descrição                         | Função Controller       |
+|--------|-------------------|---------------------------------|------------------------|
+| GET    | `/users`          | Retorna todos os usuários        | `getAllUsers`          |
+| GET    | `/users/:id`      | Retorna um usuário pelo ID       | `getUserById`          |
+| POST   | `/users`          | Cria um novo usuário             | `createUser`           |
+| PUT    | `/users/:id`      | Atualiza um usuário pelo ID      | `updateUser`           |
+| DELETE | `/users/:id`      | Deleta um usuário pelo ID        | `deleteUser`           |
+
+---
+
+### Salas (`/rooms`)
+
+| Método | Endpoint          | Descrição                         | Função Controller       |
+|--------|-------------------|---------------------------------|------------------------|
+| GET    | `/rooms`          | Retorna todas as salas           | `getAllRooms`          |
+| GET    | `/rooms/:id`      | Retorna uma sala pelo ID         | `getRoomById`          |
+| POST   | `/rooms`          | Cria uma nova sala               | `createRoom`           |
+| PUT    | `/rooms/:id`      | Atualiza uma sala pelo ID        | `updateRoom`           |
+| DELETE | `/rooms/:id`      | Deleta uma sala pelo ID          | `deleteRoom`           |
+
+---
+
+### Notificações (`/notifications`)
+
+| Método | Endpoint                | Descrição                                         | Função Controller         |
+|--------|-------------------------|-------------------------------------------------|--------------------------|
+| GET    | `/notifications`        | Retorna todas as notificações                    | `getAllNotifications`    |
+| GET    | `/notifications/unread/:userId` | Retorna notificações não lidas de um usuário | `getUnreadByUser`        |
+| POST   | `/notifications`        | Cria uma nova notificação                         | `createNotification`     |
+| PATCH  | `/notifications/:id/read` | Marca uma notificação como lida                  | `markAsRead`             |
+
+---
+
+### Reservas (`/bookings`)
+
+| Método | Endpoint          | Descrição                         | Função Controller       |
+|--------|-------------------|---------------------------------|------------------------|
+| GET    | `/bookings`       | Retorna todas as reservas        | `getAllBookings`        |
+| GET    | `/bookings/:id`   | Retorna uma reserva pelo ID      | `getBookingById`        |
+| POST   | `/bookings`       | Cria uma nova reserva            | `createBooking`         |
+| PUT    | `/bookings/:id`   | Atualiza uma reserva pelo ID     | `updateBooking`         |
+| DELETE | `/bookings/:id`   | Deleta uma reserva pelo ID       | `deleteBooking`         |
+
+---
 
 ### 3.7 Interface e Navegação (Semana 07)
 
