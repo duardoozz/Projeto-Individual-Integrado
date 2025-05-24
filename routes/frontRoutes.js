@@ -10,13 +10,11 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/about', (req, res) => {
+router.get('/pagina2', (req, res) => {
   res.render(path.join(__dirname, '../views/layout/main'), {
     pageTitle: 'Página Inicial',
     content: path.join(__dirname, '../views/pages/page2')
   });
 });
-
-// Adicione outras rotas conforme necessário
 
 module.exports = router;

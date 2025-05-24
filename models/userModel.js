@@ -1,7 +1,7 @@
 const db = require('../config/db');
 
 class User {
-  static async getAll() {
+  static async getAllUsers() {
     const result = await db.query('SELECT * FROM users');
     return result.rows;
   }
