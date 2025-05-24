@@ -19,6 +19,15 @@ db.connect()
     const frontendRoutes = require('./routes/frontRoutes');
     app.use('/', frontendRoutes);
 
+    const roomRoutes = require('./routes/roomRoutes');
+    app.use('/rooms', roomRoutes);
+
+    const bookingRoutes = require('./routes/bookingRoutes');
+    app.use('/bookings', bookingRoutes);
+
+    const notificationRoutes = require('./routes/notificationRoutes');
+    app.use('/notifications', notificationRoutes);
+
     // Middleware para lidar com erros de rota não encontrada
     app.use((req, res, next) => {
       res.status(404).send('Página não encontrada');

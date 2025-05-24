@@ -26,8 +26,11 @@ const getUserById = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    const newUser = await userModel.createUser(name, email);
+    const { name, email, password, role } = req.body;
+    if (!name || !email || !password || !role) {
+      return res.status(400).json({ error: 'Name, email, password, and role are required' });
+    }
+    const newUser = await userModel.createUser({ name, email, password, role });
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: error.message });

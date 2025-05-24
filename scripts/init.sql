@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS bookings (
 -- Criar tabela de notificações
 CREATE TABLE IF NOT EXISTS notifications (
   id SERIAL PRIMARY KEY,
-  user_id INT NOT NULL REFERENCES users(id),
-  reservation_id INT NOT NULL REFERENCES bookings(id),
+  user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  booking_id INT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
   message TEXT NOT NULL,
   sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   was_read BOOLEAN DEFAULT FALSE
