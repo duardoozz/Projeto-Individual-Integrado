@@ -1,4 +1,5 @@
 const Booking = require('../models/bookingModel');
+
 const bookingController = {
   async getAllBookings(req, res) {
     try {
@@ -62,7 +63,7 @@ const bookingController = {
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
-  }
+  },
 };
 
 module.exports = bookingController;

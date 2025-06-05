@@ -10,11 +10,11 @@ body {
 }
 
 .back-arrow {
-  display: block;
-  text-align: left;
+  position: absolute;
+  top: 24px;
+  left: 24px;
   font-size: 24px;
   text-decoration: none;
-  margin-bottom: 20px;
   color: black;
 }
 

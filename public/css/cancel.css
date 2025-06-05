@@ -6,13 +6,12 @@
 }
 
 .back-arrow {
+  position: absolute;
+  top: 24px;
+  left: 24px;
   font-size: 24px;
   text-decoration: none;
   color: black;
-  display: inline-block;
-  margin-bottom: 20px;
-  text-align: left;
-  width: 100%;
 }
 
 h1 {
