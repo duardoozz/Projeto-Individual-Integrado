@@ -1,54 +1,42 @@
-<h2>Página 1</h2>
-<p>Lista de Usuários:</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SALAFLUX</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
 
-<table border="1" id="usersTable">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="3">Carregando usuários...</td>
-    </tr>
-  </tbody>
-</table>
+  <section class="hero">
+    <h1>SALAFLUX</h1>
+    <p>Mais do que uma sala, um espaço para possibilidades</p>
+    <button>Reservar</button>
+  </section>
 
-<script>
-  // Função para buscar usuários da API e renderizar na tabela
-  async function fetchUsers() {
-    try {
-      const response = await fetch('/users');
-      if (!response.ok) {
-        throw new Error('Erro ao buscar usuários');
-      }
-      const users = await response.json();
+  <section class="agenda">
+    <h2>Meu dia</h2>
+    <div class="cards">
+      <% for(let i = 0; i < 3; i++) { %>
+        <div class="card">
+          <h3>Sala 1</h3>
+          <p>Reunião para preparar a apresentação de sexta</p>
+          <span>13:00</span>
+        </div>
+      <% } %>
+    </div>
 
-      const tableBody = document.querySelector('#usersTable tbody');
-      tableBody.innerHTML = ''; // Limpa o conteúdo anterior
+    <h2>Amanhã</h2>
+    <div class="cards">
+      <% for(let i = 0; i < 3; i++) { %>
+        <div class="card">
+          <h3>Sala 1</h3>
+          <p>Reunião para preparar a apresentação de sexta</p>
+          <span>13:00</span>
+        </div>
+      <% } %>
+    </div>
+  </section>
 
-      if (users.length > 0) {
-        users.forEach(user => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${user.id}</td>
-            <td>${user.name}</td>
-            <td>${user.email}</td>
-          `;
-          tableBody.appendChild(row);
-        });
-      } else {
-        tableBody.innerHTML = '<tr><td colspan="3">Nenhum usuário encontrado.</td></tr>';
-      }
-    } catch (error) {
-      console.error(error);
-      const tableBody = document.querySelector('#usersTable tbody');
-      tableBody.innerHTML = '<tr><td colspan="3">Erro ao carregar usuários.</td></tr>';
-    }
-  }
-
-  // Chama a função ao carregar a página
-  fetchUsers();
-</script>
+</body>
+</html>

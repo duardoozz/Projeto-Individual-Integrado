@@ -1,0 +1,24 @@
+<div class="cancel-page">
+  <a href="/reservas" class="back-arrow">←</a>
+
+  <h1><%= sala || 'Sala 1' %></h1>
+
+  <div class="info-boxes">
+    <div class="info-item">
+      <span class="label">Data:</span>
+      <span class="value"><%= data || '22/05' %></span>
+    </div>
+    <div class="info-item">
+      <span class="label">Hora:</span>
+      <span class="value"><%= hora || '13:00' %></span>
+    </div>
+  </div>
+
+  <div class="description-box">
+    <p><%= descricao || 'Reunião para alinhar a identidade visual do site' %></p>
+  </div>
+
+  <form action="/cancelar" method="post">
+    <button type="submit" class="cancel-button">CANCELAR</button>
+  </form>
+</div>

@@ -1,0 +1,89 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  color: #000;
+}
+
+.hero {
+  background-color: #ccc;
+  padding: 60px 20px;
+  text-align: center;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.hero p {
+  font-size: 18px;
+  margin: 10px 0 20px;
+}
+
+.hero button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.agenda {
+  padding: 40px 20px;
+}
+
+.agenda h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.card {
+  background-color: #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  flex: 1 1 200px;
+  max-width: 200px;
+}
+
+.card h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card p {
+  margin-bottom: 10px;
+}
+
+.card span {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+footer {
+  background-color: #f0f0f0; /* tom claro, suave */
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #ddd; /* separador discreto */
+  margin-top: 40px;
+}
+
+footer p {
+  margin: 0;
+  color: #555; /* tom de cinza para suavizar */
+  font-size: 14px;
+}

@@ -13,6 +13,8 @@ db.connect()
 
     app.use(express.json());
 
+    app.use(express.static(path.join(__dirname, 'public')));
+
     const userRoutes = require('./routes/userRoutes');
     app.use('/users', userRoutes);
 
@@ -24,9 +26,6 @@ db.connect()
 
     const bookingRoutes = require('./routes/bookingRoutes');
     app.use('/bookings', bookingRoutes);
-
-    const notificationRoutes = require('./routes/notificationRoutes');
-    app.use('/notifications', notificationRoutes);
 
     // Middleware para lidar com erros de rota não encontrada
     app.use((req, res, next) => {

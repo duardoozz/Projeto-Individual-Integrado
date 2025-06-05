@@ -13,8 +13,8 @@ class User {
 
   static async createUser(data) {
     const result = await db.query(
-      'INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *',
-      [data.name, data.email, data.password, data.role]
+      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
+      [data.name, data.email, data.password]
     );
     return result.rows[0];
   }

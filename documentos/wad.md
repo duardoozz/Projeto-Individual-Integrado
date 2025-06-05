@@ -20,7 +20,7 @@
 
 Em ambientes corporativos modernos, a gestão eficiente de espaços é um desafio constante. Com a crescente demanda por reuniões e a necessidade de otimizar o uso das salas, muitos profissionais enfrentam dificuldades em agendar espaços de forma rápida e sem conflitos. O problema é exacerbado pela falta de integração entre os sistemas de reserva, que frequentemente apresentam informações desatualizadas, além da complexidade no processo de confirmação de disponibilidade e a necessidade de interações manuais, o que impacta diretamente na produtividade.
 
-Diante desse cenário, estou desenvolvendo um "Sistema de Reserva de Salas para Agendamentos" com o objetivo de simplificar e agilizar o processo de agendamento de espaços de reunião. A proposta é criar uma plataforma intuitiva e flexível, que permita a visualização em tempo real da disponibilidade das salas, realizando agendamentos rápidos e sem erros. O sistema também incluirá funcionalidades como notificações automáticas, garantindo que os usuários se mantenham informados sobre os compromissos e evitando sobrecarga de tarefas administrativas.
+Diante desse cenário, estou desenvolvendo um "Sistema de Reserva de Salas para Agendamentos" com o objetivo de simplificar e agilizar o processo de agendamento de espaços de reunião. A proposta é criar uma plataforma intuitiva e flexível, que permita a visualização em tempo real da disponibilidade das salas, realizando agendamentos rápidos e sem erros.
 
 O foco principal do projeto é proporcionar uma experiência mais fluida e eficiente para os profissionais que lidam com a gestão de salas de reunião de forma constante, permitindo que se concentrem em suas tarefas com mais organização e menos preocupações operacionais. A solução proposta busca não só resolver os problemas atuais, mas também integrar funcionalidades que promovam maior produtividade e colaboração no ambiente corporativo.
 
@@ -39,7 +39,7 @@ Personas são representações semifictícias de segmentos‑chave de usuários,
   <sup>Fonte: Material produzido pelo autor, 2025</sup>
 </div><br>
 
-Portanto, A implementação de um sistema de reserva de salas inteligente vai otimizar o tempo de Mariana, permitindo agendamentos rápidos e sem conflitos. Com controle total sobre as reservas e notificações automáticas, ela terá mais organização e produtividade, melhorando sua rotina profissional e reduzindo falhas no processo.
+Portanto, A implementação de um sistema de reserva de salas inteligente vai otimizar o tempo de Mariana, permitindo agendamentos rápidos e sem conflitos. Com controle total sobre as reservas, ela terá mais organização e produtividade, melhorando sua rotina profissional e reduzindo falhas no processo.
 
 ### 2.2. User Stories
 
@@ -52,10 +52,10 @@ Critério de aceite 3 | CR3: O sistema deve impedir o agendamento de salas que j
 
 Identificação | US02  
 --- | ---  
-User Story | "Como usuário, quero receber notificações sobre minhas reservas, para que eu possa me lembrar dos compromissos agendados e evitar conflitos ou esquecimentos."  
-Critério de aceite 1 | CR1: O sistema deve enviar uma notificação antes do horário da reserva, informando o local, data e hora.  
-Critério de aceite 2 | CR2: O usuário deve ser notificado também em caso de alterações ou cancelamentos na reserva.  
-Critério de aceite 3 | CR3: As notificações devem ser enviadas por e-mail e/ou exibidas dentro do sistema, conforme preferência do usuário.  
+User Story | "Como usuário, quero visualizar uma tela principal com os meus agendamentos, para que eu possa acompanhar facilmente o que já reservei."  
+Critério de aceite 1 | CR1: O sistema deve exibir uma lista dos agendamentos do usuário de forma clara e organizada. 
+Critério de aceite 2 | CR2: Cada agendamento deve mostrar informações como sala, data, horário e descrição.
+Critério de aceite 3 | CR3: O sistema deve permitir que o usuário identifique rapidamente os próximos agendamentos.
 
 Identificação | US03
 --- | ---
@@ -71,7 +71,7 @@ Critérios INVEST | A US03 é independente porque trata de uma funcionalidade es
 
 ### 3.1. Modelagem do banco de dados
 
-Para o sistema de reserva de salas, foram identificadas quatro entidades principais: **users**, **rooms**, **notificações** e **bookings**. A modelagem busca garantir integridade dos dados, simplicidade nas consultas e flexibilidade para futuras melhorias.
+Para o sistema de reserva de salas, foram identificadas três entidades principais: **users**, **rooms** e **bookings**. A modelagem busca garantir integridade dos dados, simplicidade nas consultas e flexibilidade para futuras melhorias.
 
 <div align="center">
   <sub>FIGURA X - Modelo Banco de Dados </sub><br>
@@ -91,12 +91,6 @@ Para o sistema de reserva de salas, foram identificadas quatro entidades princip
 - Um **usuário (admin)** pode cadastrar **várias salas**  
   → Relação **1:N** entre `users` e `rooms`  
 
-- Uma **reserva** pode gerar **várias notificações**  
-  → Relação **1:N** entre `bookings` e `notifications`  
-
-- Um **usuário** pode receber **várias notificações**  
-  → Relação **1:N** entre `users` e `notifications`  
-
 ### 3.1.1 BD e Models
 
 Nesta seção são descritos os principais Models implementados no sistema web, responsáveis pela interação com o banco de dados via queries SQL executadas pela camada de persistência (`db.query`). Cada Model representa uma entidade do domínio da aplicação e encapsula as operações CRUD.
@@ -107,7 +101,7 @@ Nesta seção são descritos os principais Models implementados no sistema web, 
 
 Classe `User` que representa os usuários do sistema.
 
-- **Campos principais:** `id`, `name`, `email`, `password`, `role`.
+- **Campos principais:** `id`, `name`, `email`, `password`.
 - **Métodos:**
   - `getAllUsers()`: Retorna todos os usuários.
   - `getUserById(id)`: Retorna o usuário com o ID especificado.
@@ -121,7 +115,7 @@ Classe `User` que representa os usuários do sistema.
 
 Objeto `Room` que representa as salas disponíveis para reserva.
 
-- **Campos principais:** `id`, `name`, `capacity`, `location`, `available`, `availability_start`, `availability_end`, `created_by`.
+- **Campos principais:** `id`, `name`, `available`
 - **Métodos:**
   - `getAllRooms()`: Retorna todas as salas cadastradas.
   - `getRoomById(id)`: Retorna uma sala pelo ID.
@@ -135,26 +129,13 @@ Objeto `Room` que representa as salas disponíveis para reserva.
 
 Objeto `Booking` que representa as reservas realizadas.
 
-- **Campos principais:** `id`, `user_id`, `room_id`, `start_time`, `end_time`, `status`.
+- **Campos principais:** `id`, `user_id`, `room_id`, `start_time`, `status`.
 - **Métodos:**
   - `getAllBookings()`: Retorna todas as reservas.
   - `getBookingById(id)`: Retorna uma reserva pelo ID.
   - `createBooking(bookingData)`: Cria uma nova reserva com os dados fornecidos.
   - `updateBooking(id, bookingData)`: Atualiza uma reserva existente pelo ID.
   - `deleteBooking(id)`: Deleta uma reserva pelo ID.
-
----
-
-#### Model Notification
-
-Objeto `Notification` que representa as notificações enviadas aos usuários.
-
-- **Campos principais:** `id`, `user_id`, `booking_id`, `message`, `was_read`, `sent_at`.
-- **Métodos:**
-  - `getAllNotifications()`: Retorna todas as notificações, ordenadas pela data de envio.
-  - `getUnreadByUser(userId)`: Retorna as notificações não lidas de um usuário.
-  - `createNotification({ user_id, booking_id, message })`: Cria uma nova notificação.
-  - `markAsRead(id)`: Marca uma notificação como lida pelo ID.
 
 ---
 
@@ -185,7 +166,7 @@ A arquitetura implementada na aplicação evidencia a adoção eficiente do padr
 
 Além disso, observa-se a integração eficaz entre o **Client Side** e o **Server Side**. O frontend, desenvolvido com tecnologias como **JavaScript**, **HTML** e **CSS**, proporciona uma interface amigável e responsiva para os usuários, acessível via navegadores modernos. No backend, a utilização do **Node.js** e a modelagem de dados robusta garantem a execução das regras de negócio e a persistência eficiente das informações no banco de dados **PostgreSQL**, acessado via **Supabase**.
 
-A organização dos **Controllers** para diferentes funcionalidades — como agendamentos, notificações, usuários e salas — assegura a modularização do backend, facilitando tanto a escalabilidade quanto a manutenção futura do sistema.
+A organização dos **Controllers** para diferentes funcionalidades — como agendamentos, usuários e salas — assegura a modularização do backend, facilitando tanto a escalabilidade quanto a manutenção futura do sistema.
 
 Por fim, a arquitetura proposta não apenas atendeu aos requisitos técnicos do projeto, mas também estabeleceu uma base sólida e sustentável para futuras evoluções da aplicação, seja no incremento de novas funcionalidades ou na otimização dos processos existentes.
 
@@ -344,17 +325,6 @@ Web API é um conjunto de endpoints que permitem que diferentes sistemas e aplic
 | POST   | `/rooms`          | Cria uma nova sala               | `createRoom`           |
 | PUT    | `/rooms/:id`      | Atualiza uma sala pelo ID        | `updateRoom`           |
 | DELETE | `/rooms/:id`      | Deleta uma sala pelo ID          | `deleteRoom`           |
-
----
-
-### Notificações (`/notifications`)
-
-| Método | Endpoint                | Descrição                                         | Função Controller         |
-|--------|-------------------------|-------------------------------------------------|--------------------------|
-| GET    | `/notifications`        | Retorna todas as notificações                    | `getAllNotifications`    |
-| GET    | `/notifications/unread/:userId` | Retorna notificações não lidas de um usuário | `getUnreadByUser`        |
-| POST   | `/notifications`        | Cria uma nova notificação                         | `createNotification`     |
-| PATCH  | `/notifications/:id/read` | Marca uma notificação como lida                  | `markAsRead`             |
 
 ---
 

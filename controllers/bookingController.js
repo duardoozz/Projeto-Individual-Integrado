@@ -1,6 +1,4 @@
 const Booking = require('../models/bookingModel');
-const Notification = require('../models/notificationModel');
-
 const bookingController = {
   async getAllBookings(req, res) {
     try {
@@ -26,16 +24,8 @@ const bookingController = {
 
   async createBooking(req, res) {
     try {
-        const { user_id, room_id, start_time, end_time, status } = req.body;
-        const newBooking = await Booking.createBooking({ user_id, room_id, start_time, end_time, status });
-
-        const message = `Sua reserva foi criada com sucesso: Sala ${room_id} de ${start_time} até ${end_time}.`;
-        await Notification.createNotification({
-            user_id,
-            booking_id: newBooking.id,
-            message
-        });
-
+        const { user_id, room_id, start_time, status } = req.body;
+        const newBooking = await Booking.createBooking({ user_id, room_id, start_time, status });
         res.status(201).json(newBooking);
     }
     catch (err) {
@@ -53,13 +43,6 @@ const bookingController = {
         if (!updatedBooking) {
         return res.status(404).json({ message: 'Reserva não encontrada' });
         }
-
-        const message = `Status da sua reserva foi atualizado para: ${status}.`;
-        await Notification.create({
-        user_id: updatedBooking.user_id,
-        booking_id: bookingId,
-        message
-        });
 
         res.json(updatedBooking);
     } catch (err) {

@@ -12,21 +12,20 @@ const Room = {
   },
 
   async createRoom(roomData) {
-    const { name, capacity, location, available, availability_start, availability_end, created_by } = roomData;
+    const { name, available} = roomData;
     const result = await db.query(
-      `INSERT INTO rooms (name, capacity, location, available, availability_start, availability_end, created_by)
-       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-      [name, capacity, location, available, availability_start, availability_end, created_by]
+      `INSERT INTO rooms (name, available)
+       VALUES ($1, $2) RETURNING *`,
+      [name, available]
     );
     return result.rows[0];
   },
 
   async updateRoom(id, roomData) {
-    const { name, capacity, location, available, availability_start, availability_end, created_by } = roomData;
+    const { name, available} = roomData;
     const result = await db.query(
-      `UPDATE rooms SET name = $1, capacity = $2, location = $3, available = $4, 
-       availability_start = $5, availability_end = $6, created_by = $7 WHERE id = $8 RETURNING *`,
-      [name, capacity, location, available, availability_start, availability_end, created_by, id]
+      `UPDATE rooms SET name = $1, available = $2 WHERE id = $3 RETURNING *`,
+      [name, available, id]
     );
     return result.rows[0];
   },
