@@ -1,9 +1,20 @@
+html, body {
+  height: 100%;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Inter';
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
   background-color: #fff;
   color: #000;
+}
+
+main {
+  flex: 1;
 }
 
 .hero {
@@ -75,15 +86,15 @@ body {
 }
 
 footer {
-  background-color: #f0f0f0; /* tom claro, suave */
+  background-color: #f0f0f0;
   padding: 20px;
   text-align: center;
-  border-top: 1px solid #ddd; /* separador discreto */
+  border-top: 1px solid #ddd;
   margin-top: 40px;
 }
 
 footer p {
-  margin: 0;
-  color: #555; /* tom de cinza para suavizar */
+  margin-top: auto;
+  color: #555;
   font-size: 14px;
 }

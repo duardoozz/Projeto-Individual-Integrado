@@ -1,8 +1,5 @@
-// services/userService.js
-
 const db = require('../config/db');
 
-// Função para obter todos os usuários
 const getAllUsers = async () => {
   try {
     const result = await db.query('SELECT * FROM users');
@@ -12,7 +9,6 @@ const getAllUsers = async () => {
   }
 };
 
-// Função para obter um usuário por ID
 const getUserById = async (id) => {
   try {
     const result = await db.query('SELECT * FROM users WHERE id = $1', [id]);
@@ -22,7 +18,6 @@ const getUserById = async (id) => {
   }
 };
 
-// Função para criar um novo usuário
 const createUser = async (name, email) => {
   try {
     const result = await db.query(
@@ -35,7 +30,6 @@ const createUser = async (name, email) => {
   }
 };
 
-// Função para atualizar um usuário por ID
 const updateUser = async (id, name, email) => {
   try {
     const result = await db.query(
@@ -48,7 +42,6 @@ const updateUser = async (id, name, email) => {
   }
 };
 
-// Função para deletar um usuário por ID
 const deleteUser = async (id) => {
   try {
     const result = await db.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
