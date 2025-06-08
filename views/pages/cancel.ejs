@@ -1,7 +1,7 @@
 <div class="cancel-page">
   <a href="/" class="back-arrow">←</a>
 
-  <h1><%= sala || 'Sala 1' %></h1>
+  <h1>Sala <%= sala || '1' %></h1>
 
   <div class="info-boxes">
     <div class="info-item">
@@ -19,6 +19,7 @@
   </div>
 
   <form action="/cancelar" method="post">
+    <input type="hidden" name="id" value="<%= id %>">
     <button type="submit" class="cancel-button">CANCELAR</button>
   </form>
 </div>

@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS bookings (
   id SERIAL PRIMARY KEY,
   user_id INT NOT NULL REFERENCES users(id),
   room_id INT NOT NULL REFERENCES rooms(id),
-  start_time TIMESTAMP NOT NULL,
+  start_time VARCHAR(5) NOT NULL, -- Alterado para VARCHAR para armazenar apenas o horário (HH:MM)
   status VARCHAR(20) NOT NULL CHECK (status IN ('ativa', 'cancelada', 'concluída')),
+  date DATE NOT NULL,
+  description TEXT NOT NULL
 );

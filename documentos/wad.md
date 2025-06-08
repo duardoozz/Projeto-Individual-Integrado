@@ -129,7 +129,7 @@ Objeto `Room` que representa as salas disponíveis para reserva.
 
 Objeto `Booking` que representa as reservas realizadas.
 
-- **Campos principais:** `id`, `user_id`, `room_id`, `start_time`, `status`.
+- **Campos principais:** `id`, `user_id`, `room_id`, `start_time`, `status`, `date`, `description`.
 - **Métodos:**
   - `getAllBookings()`: Retorna todas as reservas.
   - `getBookingById(id)`: Retorna uma reserva pelo ID.

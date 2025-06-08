@@ -25,8 +25,8 @@ const bookingController = {
 
   async createBooking(req, res) {
     try {
-        const { user_id, room_id, start_time, status } = req.body;
-        const newBooking = await Booking.createBooking({ user_id, room_id, start_time, status });
+        const { user_id, room_id, start_time, status, date, description } = req.body;
+        const newBooking = await Booking.createBooking({ user_id, room_id, start_time, status, date, description });
         res.status(201).json(newBooking);
     }
     catch (err) {

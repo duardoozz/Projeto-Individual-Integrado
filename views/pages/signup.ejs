@@ -1,0 +1,37 @@
+<div class="auth-container">
+  <div class="logo-side">
+    <h1>SALAFLUX</h1>
+  </div>
+  
+  <div class="form-side">
+    <div class="auth-form">
+      <h2>Crie sua Conta</h2>
+      
+      <form action="/auth/signup" method="post">
+        <div class="form-group">
+          <label for="name">Nome Completo</label>
+          <input type="text" id="name" name="name" placeholder="Digite seu nome completo" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Preencha seu e-mail" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" placeholder="Coloque sua senha" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Confirme sua senha</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Digite sua senha novamente" required>
+        </div>
+        
+        <button type="submit" class="auth-button">Criar Conta</button>
+      </form>
+      
+      <p class="auth-link">Já tem uma conta? <a href="/auth/login">Entre agora</a></p>
+    </div>
+  </div>
+</div>

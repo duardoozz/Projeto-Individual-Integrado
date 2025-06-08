@@ -11,7 +11,13 @@ class User {
     return result.rows[0];
   }
 
+  static async getUserByEmail(email) {
+    const result = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+    return result.rows[0];
+  }
+
   static async createUser(data) {
+    // Em uma aplicação real, você faria o hash da senha aqui
     const result = await db.query(
       'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
       [data.name, data.email, data.password]
@@ -29,7 +35,7 @@ class User {
 
   static async deleteUser(id) {
     const result = await db.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
-    return result.rowCount > 0;
+    return result.rows[0];
   }
 }
 

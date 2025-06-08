@@ -1,7 +1,7 @@
 <div class="confirmation-container">
   <a href="/bookings" class="back-arrow">←</a>
 
-  <h1><%= sala || 'Sala 1' %></h1>
+  <h1>Sala <%= sala || '1' %></h1>
 
   <div class="info-boxes">
     <div class="info-item">
@@ -19,11 +19,12 @@
   </div>
 
   <div class="button-group">
-    <form action="/cancelar" method="post">
-      <button type="submit" class="cancel-button">CANCELAR</button>
-    </form>
-
+    <a href="/bookings" class="cancel-button">CANCELAR</a>
     <form action="/confirmar" method="post">
+      <input type="hidden" name="sala" value="<%= sala %>">
+      <input type="hidden" name="data" value="<%= data %>">
+      <input type="hidden" name="hora" value="<%= hora %>">
+      <input type="hidden" name="descricao" value="<%= descricao %>">
       <button type="submit" class="confirm-button">Reservar</button>
     </form>
   </div>

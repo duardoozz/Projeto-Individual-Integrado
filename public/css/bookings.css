@@ -39,7 +39,7 @@ body {
 }
 
 .section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .times, .rooms {
@@ -62,8 +62,13 @@ button.selected {
 }
 
 button.unavailable {
-  background: red;
+  background: #c40000;
   color: white;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+button:disabled {
   cursor: not-allowed;
 }
 
@@ -74,4 +79,60 @@ button.reserve {
   padding: 1rem;
   border-radius: 20px;
   font-size: 1.1rem;
+}
+
+/* Adicionar estilos para o novo formulário */
+textarea#booking-description {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+button#check-availability, 
+button#make-reservation {
+  margin-top: 10px;
+  width: 100%;
+}
+
+button#make-reservation:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* Estilo para a data selecionada no calendário */
+.selected-date-display {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  display: none;
+}
+
+.fc .fc-daygrid-day.selected-date {
+  background-color: #e6e6e6;
+}
+
+/* Ajustes para os botões de horário e sala */
+.times button, 
+.rooms button {
+  margin: 5px;
+  transition: all 0.2s;
+}
+
+.times button:hover:not(.unavailable), 
+.rooms button:hover:not(.unavailable) {
+  background: #ddd;
+}
+
+.times button.selected, 
+.rooms button.selected {
+  background: #000;
+  color: #fff;
 }

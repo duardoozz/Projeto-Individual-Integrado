@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const db = require('./config/db');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -12,8 +13,14 @@ db.connect()
     console.log('Conectado ao banco de dados PostgreSQL');
 
     app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    app.use(cookieParser()); // Adicionar middleware para processar cookies
 
     app.use(express.static(path.join(__dirname, 'public')));
+
+    // Carregar as rotas de autenticação ANTES das outras rotas
+    const authRoutes = require('./routes/authRoutes');
+    app.use('/auth', authRoutes);
 
     const userRoutes = require('./routes/userRoutes');
     app.use('/users', userRoutes);
@@ -26,6 +33,11 @@ db.connect()
 
     const bookingRoutes = require('./routes/bookingRoutes');
     app.use('/bookings', bookingRoutes);
+
+    // Redirecionar a raiz para a página de login
+    app.get('/', (req, res) => {
+      res.redirect('/auth/login');
+    });
 
     app.use((req, res, next) => {
       res.status(404).send('Página não encontrada');

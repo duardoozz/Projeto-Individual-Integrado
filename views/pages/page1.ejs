@@ -15,32 +15,27 @@
   </section>
 
   <section class="agenda">
-    <h2>Meu dia</h2>
+    <h2>Minhas reservas</h2>
+    <form action="/bookings" method="get"></form>
     <div class="cards">
-      <% for(let i = 0; i < 3; i++) { %>
-      <a href="/cancel">
-        <div class="card">
-          <h3>Sala 1</h3>
-          <p>Reunião para preparar a apresentação de sexta</p>
-          <span>13:00</span>
-        </div>
-      </a>
-      <% } %>
-    </div>
-
-    <h2>Amanhã</h2>
-    <div class="cards">
-      <% for(let i = 0; i < 3; i++) { %>
-      <a href="/cancel">
-        <div class="card">
-          <h3>Sala 1</h3>
-          <p>Reunião para preparar a apresentação de sexta</p>
-          <span>13:00</span>
-        </div>
-      </a>
+      <% if (typeof bookings !== 'undefined' && bookings.length > 0) { %>
+        <% bookings.forEach(function(booking) { %>
+          <a href="/cancel/<%= booking.id %>">
+            <div class="card">
+              <h3>Sala <%= booking.room_id %></h3>
+              <p class="description"><%= booking.description %></p>
+              <div class="card-footer">
+                <span class="date-time"><span class="date"><%= booking.date %></span> - <span class="time"><%= booking.start_time %></span></span>
+              </div>
+            </div>
+          </a>
+        <% }) %>
+      <% } else { %>
+        <p>Nenhuma reserva encontrada.</p>
       <% } %>
     </div>
   </section>
 
+  <script src="/js/page1.js"></script>
 </body>
 </html>
