@@ -17,7 +17,6 @@ class User {
   }
 
   static async createUser(data) {
-    // Em uma aplicação real, você faria o hash da senha aqui
     const result = await db.query(
       'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
       [data.name, data.email, data.password]

@@ -9,32 +9,35 @@ document.addEventListener('DOMContentLoaded', function () {
   let selectedTime = null;
   let selectedRoom = null;
 
-  // Inicializar o calendário
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
     locale: 'pt-br',
     height: 'auto',
     selectable: true,
     select: function(info) {
+      console.log('Data selecionada:', info.startStr);
       selectedDate = info.startStr;
       
-      // Limpar seleções anteriores
       clearSelections();
-      
-      // Carregar horários disponíveis automaticamente
+    
       loadAvailableTimes(selectedDate);
     },
     dateClick: function(info) {
-      // Manter a data selecionada visualmente
+      console.log('Data clicada:', info.dateStr);
+      selectedDate = info.dateStr;
+      
       const allDates = document.querySelectorAll('.fc-daygrid-day');
       allDates.forEach(date => date.classList.remove('selected-date'));
       info.dayEl.classList.add('selected-date');
+      
+      clearSelections();
+      
+      loadAvailableTimes(selectedDate);
     }
   });
 
   calendar.render();
 
-  // Função para limpar seleções
   function clearSelections() {
     timeSlots.innerHTML = '';
     availableRooms.innerHTML = '';
@@ -43,30 +46,23 @@ document.addEventListener('DOMContentLoaded', function () {
     makeReservationBtn.disabled = true;
   }
 
-  // Carregar horários disponíveis para a data selecionada
   function loadAvailableTimes(date) {
-    // Primeiro, buscar as reservas existentes para esta data
     fetch(`/api/bookings-by-date?date=${date}`)
       .then(response => response.json())
       .then(bookings => {
         const times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
         const bookedTimes = {};
         
-        // Inicializar contagem de reservas para cada horário
         times.forEach(time => {
           bookedTimes[time] = 0;
         });
         
-        // Contar quantas salas estão reservadas para cada horário
         bookings.forEach(booking => {
           let bookingTime;
           
-          // Garantir que temos uma string de hora válida
           if (typeof booking.start_time === 'string') {
-            // Pegar apenas HH:MM se for uma string mais longa
             bookingTime = booking.start_time.substring(0, 5);
           } else {
-            // Se não for string, converter para string
             bookingTime = String(booking.start_time);
           }
           
@@ -75,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         });
         
-        // Obter o número total de salas
         fetch('/api/rooms')
           .then(response => response.json())
           .then(rooms => {
@@ -87,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
               button.textContent = time;
               button.dataset.time = time;
               
-              // Verificar se todas as salas estão reservadas neste horário
               const isUnavailable = bookedTimes[time] >= totalRooms;
               
               if (isUnavailable) {
@@ -95,16 +89,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 button.disabled = true;
               } else {
                 button.addEventListener('click', function() {
-                  // Remover seleção anterior
+                  console.log('Horário selecionado:', this.dataset.time);
+                  
                   document.querySelectorAll('#time-slots button.selected').forEach(btn => {
                     btn.classList.remove('selected');
                   });
                   
-                  // Adicionar seleção atual
                   this.classList.add('selected');
                   selectedTime = this.dataset.time;
                   
-                  // Carregar salas disponíveis automaticamente
                   loadAvailableRooms(selectedDate, selectedTime);
                 });
               }
@@ -118,9 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  // Carregar salas disponíveis para a data e horário selecionados
   function loadAvailableRooms(date, time) {
-    // Fazer uma requisição AJAX para verificar salas disponíveis
     fetch(`/api/available-rooms?date=${date}&time=${time}`)
       .then(response => response.json())
       .then(availableRooms => {
@@ -134,11 +125,9 @@ document.addEventListener('DOMContentLoaded', function () {
           return;
         }
         
-        // Obter todas as salas
         fetch('/api/rooms')
           .then(response => response.json())
           .then(allRooms => {
-            // Criar um conjunto de IDs de salas disponíveis para verificação rápida
             const availableRoomIds = new Set(availableRooms.map(room => room.id));
             
             allRooms.forEach(room => {
@@ -146,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function () {
               button.textContent = `Sala ${room.id}`;
               button.dataset.roomId = room.id;
               
-              // Verificar se a sala está disponível
               const isAvailable = availableRoomIds.has(room.id);
               
               if (!isAvailable) {
@@ -154,16 +142,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 button.disabled = true;
               } else {
                 button.addEventListener('click', function() {
-                  // Remover seleção anterior
+                  console.log('Sala selecionada:', this.dataset.roomId);
+                  
                   document.querySelectorAll('#available-rooms button.selected').forEach(btn => {
                     btn.classList.remove('selected');
                   });
                   
-                  // Adicionar seleção atual
                   this.classList.add('selected');
                   selectedRoom = this.dataset.roomId;
                   
-                  // Habilitar botão de reserva
                   makeReservationBtn.disabled = false;
                 });
               }
@@ -177,7 +164,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  // Evento para o botão de reserva
   makeReservationBtn.addEventListener('click', function() {
     if (!selectedDate || !selectedTime || !selectedRoom) {
       alert('Por favor, selecione data, horário e sala.');
@@ -190,17 +176,34 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // Redirecionar para a página de confirmação com os parâmetros selecionados
-    window.location.href = `/confirm?sala=${selectedRoom}&data=${formatDate(selectedDate)}&hora=${selectedTime}&descricao=${encodeURIComponent(description)}`;
+    const formattedDate = formatDate(selectedDate);
+    
+    console.log('Dados antes do redirecionamento:', {
+      sala: selectedRoom,
+      data: formattedDate,
+      hora: selectedTime,
+      descricao: description
+    });
+    
+    window.location.href = `/confirm?sala=${encodeURIComponent(selectedRoom)}&data=${encodeURIComponent(formattedDate)}&hora=${encodeURIComponent(selectedTime)}&descricao=${encodeURIComponent(description)}`;
   });
 
-  // Função para formatar a data para exibição
   function formatDate(dateStr) {
-    const date = new Date(dateStr);
-    const day = ('0' + date.getDate()).slice(-2);
-    // Array com os nomes dos meses abreviados em português
+    console.log('Data antes da formatação:', dateStr);
+    
+    const [year, month, day] = dateStr.split('-').map(Number);
+    
+    const date = new Date(year, month - 1, day);
+    
+    console.log('Objeto Date criado:', date);
+    
+    const formattedDay = ('0' + date.getDate()).slice(-2);
+    
     const monthNames = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-    const month = monthNames[date.getMonth()];
-    return `${day}/${month}`;
+    const formattedMonth = monthNames[date.getMonth()];
+    
+    const formattedDate = `${formattedDay}/${formattedMonth}`;
+    console.log('Data após formatação:', formattedDate);
+    return formattedDate;
   }
 });

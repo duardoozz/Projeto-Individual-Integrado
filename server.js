@@ -14,11 +14,10 @@ db.connect()
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(cookieParser()); // Adicionar middleware para processar cookies
+    app.use(cookieParser());
 
     app.use(express.static(path.join(__dirname, 'public')));
 
-    // Carregar as rotas de autenticação ANTES das outras rotas
     const authRoutes = require('./routes/authRoutes');
     app.use('/auth', authRoutes);
 
@@ -34,7 +33,6 @@ db.connect()
     const bookingRoutes = require('./routes/bookingRoutes');
     app.use('/bookings', bookingRoutes);
 
-    // Redirecionar a raiz para a página de login
     app.get('/', (req, res) => {
       res.redirect('/auth/login');
     });
