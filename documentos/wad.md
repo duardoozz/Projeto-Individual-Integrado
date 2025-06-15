@@ -340,9 +340,59 @@ Web API é um conjunto de endpoints que permitem que diferentes sistemas e aplic
 
 ---
 
-### 3.7 Interface e Navegação (Semana 07)
+### 3.7 Interface e Navegação
 
-*Descreva e ilustre aqui o desenvolvimento do frontend do sistema web, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+Nesta seção, detalhamos o desenvolvimento da interface do usuário (frontend) do sistema web "SALAFLUX", com foco na experiência do usuário e na navegação. O objetivo foi criar uma interface intuitiva e responsiva, que permita aos usuários realizar reservas de salas de forma eficiente. O código-fonte do frontend foi desenvolvido utilizando tecnologias web modernas para garantir performance e manutenibilidade.
+
+A página inicial do sistema serve como ponto de entrada principal, exibindo a identidade visual da aplicação ("SALAFLUX") e uma breve descrição. O botão "Reservar" direciona o usuário para o fluxo de agendamento de salas.
+
+<div align="center">
+  <sub>FIGURA X - Página Inicial </sub><br>
+  <img src= "../assets/paginaInicial.png"
+  alt="Página Inicial"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+Um destaque desta página é a seção "Minhas reservas", que proporciona uma visão rápida e organizada das reservas existentes do usuário. Como ilustrado na figura, uma reserva individual exibe o nome da sala ("Sala 1"), uma descrição ("111"), e a data e hora do agendamento ("11/jun - 11:00"). Esta seção permite ao usuário ter um controle imediato sobre seus compromissos.
+
+### 3.7.2 Tela de Reserva de Salas
+
+Ao clicar no botão "Reservar" na página inicial, o usuário é direcionado para a tela de reserva. Esta interface foi projetada para facilitar a escolha da data, hora e sala.
+
+<div align="center">
+  <sub>FIGURA X - Página Reserva </sub><br>
+  <img src= "../assets/paginaReserva.png"
+  alt="Página Reserva"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+A tela apresenta um calendário intuitivo, permitindo a navegação entre os meses e a seleção da data desejada. O dia atual ("today") é claramente indicado para referência. À direita do calendário, são apresentados os "Horários disponíveis" e as "Salas disponíveis", que são dinamicamente atualizados com base na data selecionada. Há também um campo de texto para que o usuário insira uma "Descrição da reunião", personalizando sua reserva. O botão "Reservar" nesta tela inicia o processo de confirmação da reserva.
+
+### 3.7.3 Tela de Confirmação de Reserva
+
+Após selecionar os detalhes da reserva na tela anterior e prosseguir, o usuário é levado à tela de confirmação (Figura 3). Esta etapa crucial exibe um resumo dos dados da reserva, incluindo a "Sala" escolhida ("Sala 2"), a "Data" ("12/jun") e a "Hora" ("16:00"). A descrição fornecida pelo usuário ("teste") também é exibida para revisão.
+
+<div align="center">
+  <sub>FIGURA X - Página Confirmação </sub><br>
+  <img src= "../assets/paginaConfirma.png"
+  alt="Página Confirmação"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+A tela oferece duas opções claras ao usuário: "CANCELAR", que permite desistir da reserva e retornar à tela anterior, e "Reservar", que finaliza o processo de agendamento, confirmando a criação da reserva no sistema.
+
+### 3.7.4 Tela de Cancelamento de Reserva
+
+Para proporcionar controle total sobre as reservas, o sistema também inclui uma tela dedicada ao cancelamento. Esta tela é acessada quando o usuário opta por cancelar uma reserva existente ou está no processo de confirmação de uma nova reserva e decide não prosseguir.
+
+<div align="center">
+  <sub>FIGURA X - Página Cancela </sub><br>
+  <img src= "../assets/paginaCancela.png"
+  alt="Página Cancela"><br>
+  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+</div>
+
+A interface exibe novamente os detalhes da reserva em questão: "Sala 2", "Data: 12/jun" e "Hora: 16:00", além da descrição associada ("teste"). O botão "CANCELAR" é proeminentemente exibido, com a finalidade de desfazer a reserva de forma definitiva. Esta etapa garante que o usuário confirme sua intenção de cancelar, evitando ações acidentais.
 
 ---
 
@@ -350,15 +400,144 @@ Web API é um conjunto de endpoints que permitem que diferentes sistemas e aplic
 
 ### 4.1 Demonstração do Sistema Web (Semana 8)
 
-*VIDEO: Insira o link do vídeo demonstrativo nesta seção*
-*Descreva e ilustre aqui o desenvolvimento do sistema web completo, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar.*
+O vídeo demonstrativo do sistema pode ser acessado através do seguinte link:
+[Demonstração do SalaFlux](https://www.youtube.com/watch?v=exemplo)
+
+O sistema web SalaFlux foi desenvolvido com sucesso, implementando todas as funcionalidades planejadas para facilitar o agendamento e gerenciamento de salas de reunião. A aplicação foi construída seguindo a arquitetura MVC (Model-View-Controller), utilizando Node.js no backend, PostgreSQL (via Supabase) como banco de dados, e HTML/CSS/JavaScript no frontend.
+
+#### Principais Funcionalidades Implementadas:
+
+1. **Sistema de Autenticação**: Permite que usuários façam login e mantenham suas sessões através de cookies.
+
+2. **Página Inicial Personalizada**: Exibe as reservas do usuário logado, proporcionando uma visão rápida dos compromissos agendados.
+
+3. **Sistema de Reservas**: Interface intuitiva com calendário interativo, seleção de horários e salas disponíveis.
+
+4. **Confirmação de Reservas**: Tela de confirmação que exibe um resumo dos detalhes da reserva antes de finalizar.
+
+5. **Cancelamento de Reservas**: Funcionalidade que permite aos usuários cancelar reservas existentes.
+
+#### Aspectos Técnicos Relevantes:
+
+- **Banco de Dados**: Implementação de três tabelas principais (users, rooms, bookings) com relacionamentos adequados.
+
+````sql
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(100) NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS rooms (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  available BOOLEAN DEFAULT TRUE,
+);
+
+CREATE TABLE IF NOT EXISTS bookings (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL REFERENCES users(id),
+  room_id INT NOT NULL REFERENCES rooms(id),
+  start_time VARCHAR(5) NOT NULL,
+  status VARCHAR(20) NOT NULL CHECK (status IN ('ativa', 'cancelada', 'concluída')),
+  date DATE NOT NULL,
+  description TEXT NOT NULL
+);
+````
+
+- **API RESTful**: Desenvolvimento de endpoints para todas as operações CRUD necessárias.
+```javascript
+  router.get('/api/available-rooms', async (req, res) => {
+    try {
+      const { date, time } = req.query;
+      if (!date || !time) {
+        return res.status(400).json({ error: 'Data e hora são obrigatórias' });
+      }
+      const allRooms = await getRooms();
+      const bookings = await Booking.getAllBookings();
+      const filteredBookings = bookings.filter(booking => {
+        const bookingDate = new Date(booking.date).toISOString().split('T')[0];
+        let bookingTime = booking.start_time.substring(0, 5);
+        return bookingDate === date && bookingTime === time;
+      });
+      const bookedRoomIds = new Set(filteredBookings.map(booking => booking.room_id));
+      const availableRooms = allRooms.filter(room => !bookedRoomIds.has(room.id));
+      res.json(availableRooms);
+    } catch (err) {
+      console.error('Erro ao buscar salas disponíveis:', err);
+      res.status(500).json({ error: 'Erro ao buscar salas disponíveis' });
+    }
+  });
+```
+
+- **Validações**: Implementação de verificações para evitar conflitos de agendamento.
+  ```javascript
+  static async createBooking(data) {
+    try {
+      const existingBookings = await db.query(
+        'SELECT * FROM bookings WHERE room_id = $1 AND date = $2 AND start_time = $3 AND status = $4',
+        [data.room_id, data.date, data.start_time, 'ativa']
+      );
+      
+      if (existingBookings.rows.length > 0) {
+        throw new Error('Esta sala já está reservada neste horário');
+      }
+      let formattedStartTime = data.start_time;
+      if (typeof data.start_time === 'string' && !data.start_time.match(/^\d{1,2}:\d{2}$/)) {
+        const timeMatch = data.start_time.match(/(\d{1,2}):(\d{2})/);
+        if (timeMatch) {
+          formattedStartTime = `${timeMatch[1].padStart(2, '0')}:${timeMatch[2]}`;
+        }
+      }
+      
+      const result = await db.query(
+        'INSERT INTO bookings (user_id, room_id, start_time, status, date, description) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+        [data.user_id, data.room_id, formattedStartTime, data.status, data.date, data.description]
+      );
+      return result.rows[0];
+    } catch (err) {
+      console.error('Erro ao criar reserva:', err);
+      throw err;
+    }
+  }
+  ```
+
+O sistema atende completamente às necessidades identificadas na persona Mariana Souza, oferecendo uma solução eficiente para o problema de agendamento de salas, com interface amigável e funcionalidades que otimizam o fluxo de trabalho.
 
 ### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
 
-*Indique pontos fortes e pontos a melhorar de maneira geral.*
-*Relacione também quaisquer outras ideias que você tenha para melhorias futuras.*
+O desenvolvimento do sistema SalaFlux representou uma jornada significativa de aprendizado e aplicação prática de conceitos de desenvolvimento web. Ao concluir esta etapa do projeto, é possível identificar diversos pontos fortes e oportunidades de melhoria para futuras iterações.
 
+#### Pontos Fortes
 
+1. **Arquitetura MVC bem implementada**: A separação clara entre Model, View e Controller permitiu um desenvolvimento organizado e facilitou a manutenção do código.
+
+2. **Interface intuitiva**: O design minimalista e funcional proporciona uma experiência de usuário fluida, com foco nas tarefas essenciais de agendamento.
+
+#### Pontos a Melhorar
+
+1. **Desempenho em consultas complexas**: Algumas consultas ao banco de dados poderiam ser otimizadas para melhorar o tempo de resposta, especialmente em períodos de alta demanda.
+
+2. **Cobertura de testes**: Embora tenham sido implementados testes básicos, uma cobertura mais abrangente de testes unitários e de integração seria benéfica para garantir a estabilidade do sistema.
+
+3. **Feedback visual**: Algumas ações do usuário poderiam ter feedback visual mais claro, como animações ou mensagens de confirmação mais elaboradas.
+
+#### Melhorias Futuras
+
+1. **Sistema de notificações**: Implementar alertas por e-mail ou push notifications para lembrar os usuários de suas reservas próximas.
+
+2. **Integração com calendários externos**: Permitir sincronização com Google Calendar, Microsoft Outlook e outros serviços populares de agenda.
+
+3. **Dashboard administrativo**: Desenvolver uma interface específica para administradores, com relatórios de uso, estatísticas e ferramentas de gestão avançadas.
+
+4. **Reservas recorrentes**: Adicionar a funcionalidade de criar agendamentos que se repetem semanalmente ou mensalmente, facilitando a vida de usuários com compromissos regulares.
+
+5. **Check-in/Check-out**: Implementar um sistema que permita aos usuários confirmar sua presença na sala e liberar o espaço quando saírem antes do horário previsto.
+
+6. **Avaliação de salas**: Permitir que os usuários avaliem as salas após o uso, gerando insights para melhorias na infraestrutura física.
+
+O SalaFlux demonstrou ser uma solução eficaz para o problema de agendamento de salas, atendendo às necessidades identificadas na fase de planejamento. As melhorias propostas não apenas resolveriam as limitações atuais, mas também expandiriam significativamente o valor entregue aos usuários, transformando o sistema em uma ferramenta ainda mais completa para gestão de espaços.
 
 ## <a name="c5"></a>5. Referências
 
