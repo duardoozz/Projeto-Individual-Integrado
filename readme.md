@@ -41,7 +41,7 @@ A proposta do SalaFlux é ser um aliado da produtividade, organizando agendas e 
 
 ### Vídeo Demonstrativo
 
-[Assista à demonstração completa do SalaFlux]()
+[Assista à demonstração completa do SalaFlux](https://drive.google.com/file/d/1yE1PEvVwFkd4ml-VNRW-SrINpGn2uks0/view?usp=sharing)
 
 ## 💻 Tecnologias Utilizadas
 

@@ -401,7 +401,7 @@ A interface exibe novamente os detalhes da reserva em questão: "Sala 2", "Data:
 ### 4.1 Demonstração do Sistema Web (Semana 8)
 
 O vídeo demonstrativo do sistema pode ser acessado através do seguinte link:
-[Demonstração do SalaFlux]()
+[Demonstração do SalaFlux](https://drive.google.com/file/d/1yE1PEvVwFkd4ml-VNRW-SrINpGn2uks0/view?usp=sharing)
 
 O sistema web SalaFlux foi desenvolvido com sucesso, implementando todas as funcionalidades planejadas para facilitar o agendamento e gerenciamento de salas de reunião. A aplicação foi construída seguindo a arquitetura MVC (Model-View-Controller), utilizando Node.js no backend, PostgreSQL (via Supabase) como banco de dados, e HTML/CSS/JavaScript no frontend.
 
